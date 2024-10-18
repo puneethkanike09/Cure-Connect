@@ -2,7 +2,7 @@
 const AddDoctor = () => {
   return (
     <form action="">
-      <p></p>
+      <p>Add doctor page</p>
     </form>
   )
 }
