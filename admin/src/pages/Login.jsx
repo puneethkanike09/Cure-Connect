@@ -11,26 +11,28 @@ const Login = () => {
   const[password, setPassword] = useState('')
   const {setAToken, backendUrl} = useContext(AdminContext)
 
-  const onSubmitHandler =  async (e)=>{
-      e.preventDefault();
-      try {
-        if(state=== 'Admin'){
-          const {data} = await axios.post(backendUrl+'/api/admin/login', {email, password})
-          if(data.success){
-            toast.success(data.message)
-            localStorage.setItem('aToken', data.token)
-            setAToken(data.token)
-          }else{
-            toast.error(data.message)
-          }
-        }else{
-
-        }
-      } catch (error) {
-        console.log(error)
+  const onSubmitHandler = async (e) => {
+  e.preventDefault();
+  try {
+    if (state === 'Admin') {
+      const { data } = await axios.post(backendUrl + '/api/admin/login', { email, password });
+      if (data.success) {
+        toast.success(data.message);  // Display toast before state update
+        localStorage.setItem('aToken', data.token);
+        setAToken(data.token); // Update state after toast
+        console.log(data.message);
+      } else {
+        toast.error(data.message);
+        console.log(data.message);
       }
-      
+    } else {
+      // Handle other states
+    }
+  } catch (error) {
+    console.log(error);
   }
+};
+
   
 
   return (
