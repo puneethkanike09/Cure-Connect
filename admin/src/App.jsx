@@ -31,8 +31,9 @@ const App = () => {
     </div>
   ) : (
     <>
+    <ToastContainer theme="colored" autoClose={1000}/>
     <Login />
-      <ToastContainer/>
+      
     </>
   )
 }
