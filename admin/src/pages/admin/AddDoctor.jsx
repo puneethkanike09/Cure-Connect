@@ -1,7 +1,7 @@
 
 const AddDoctor = () => {
   return (
-    <form action="">
+    <form  action="">
       <p>Add doctor page</p>
     </form>
   )

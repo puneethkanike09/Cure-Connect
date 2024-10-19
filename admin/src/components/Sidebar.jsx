@@ -6,15 +6,15 @@ import { assets } from "../assets/assets";
 const Sidebar = () => {
   const { aToken } = useContext(AdminContext);
   return (
-    <div className="min-h-screen bg-white border-r">
+    <div  className="min-h-screen bg-white/10 backdrop-blur-md border-white/20 ">
       {aToken && (
-        <ul className="text-[#515151] mt-5">
+        <ul className="text-black mt-5">
           <NavLink
             className={({ isActive }) =>
-              `flex items-center transition-all duration-300 ease-in-out gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer ${
+              `flex items-center transition-all duration-300 ease-in-out gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer rounded-lg ${
                 isActive
-                  ? "bg-[#f2f3ff] border-r-4 border-primary "
-                  : "hover:bg-[#f2f3ff] hover:border-primary"
+                  ? "bg-blue-800/10 border-r-4 border-primary text-black"
+                  : "hover:bg-[#f2f3ff]/10 hover:border-primary hover:text-primary"
               }`
             }
             to={"/admin-dashboard"}
@@ -24,10 +24,10 @@ const Sidebar = () => {
           </NavLink>
           <NavLink
             className={({ isActive }) =>
-              `flex items-center transition-all duration-300 ease-in-out gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer ${
+              `flex items-center transition-all duration-300 ease-in-out gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer rounded-lg ${
                 isActive
-                  ? "bg-[#f2f3ff] border-r-4 border-primary"
-                  : "hover:bg-[#f2f3ff] hover:border-primary"
+                  ? "bg-blue-800/10 border-r-4 border-primary text-black"
+                  : "hover:bg-[#f2f3ff]/10 hover:border-primary hover:text-primary"
               }`
             }
             to={"/all-appointments"}
@@ -37,10 +37,10 @@ const Sidebar = () => {
           </NavLink>
           <NavLink
             className={({ isActive }) =>
-              `flex items-center transition-all duration-300 ease-in-out gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer ${
+              `flex items-center transition-all duration-300 ease-in-out gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer rounded-lg ${
                 isActive
-                  ? "bg-[#f2f3ff] border-r-4 border-primary"
-                  : "hover:bg-[#f2f3ff] hover:border-primary"
+                  ? "bg-blue-800/10 border-r-4 border-primary text-black"
+                  : "hover:bg-[#f2f3ff]/10 hover:border-primary hover:text-primary"
               }`
             }
             to={"/add-doctor"}
@@ -50,10 +50,10 @@ const Sidebar = () => {
           </NavLink>
           <NavLink
             className={({ isActive }) =>
-              `flex items-center transition-all duration-300 ease-in-out gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer ${
+              `flex items-center transition-all duration-300 ease-in-out gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer rounded-lg ${
                 isActive
-                  ? "bg-[#f2f3ff] border-r-4 border-primary"
-                  : "hover:bg-[#f2f3ff] hover:border-primary"
+                  ? "bg-blue-800/10 border-r-4 border-primary text-black"
+                  : "hover:bg-[#f2f3ff]/10 hover:border-primary hover:text-primary"
               }`
             }
             to={"/doctors-list"}

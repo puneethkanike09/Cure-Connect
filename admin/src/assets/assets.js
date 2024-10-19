@@ -11,6 +11,8 @@ import tick_icon from './tick_icon.svg'
 import appointments_icon from './appointments_icon.svg'
 import earning_icon from './earning_icon.svg'
 import patients_icon from './patients_icon.svg'
+import bgImg from './vecteezy_abstract-blue-fluid-wave-background_.jpg'
+import bgImg2 from './vecteezy_abstract-blue-background-simple-design-for-your-website_6852804.jpg'
 
 export const assets = {
     add_icon,
@@ -25,5 +27,7 @@ export const assets = {
     list_icon,
     tick_icon,
     appointments_icon,
-    earning_icon
+    earning_icon,
+    bgImg,
+    bgImg2
 }
