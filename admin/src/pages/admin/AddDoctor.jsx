@@ -17,6 +17,8 @@ const AddDoctor = () => {
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
 
+  const [loading, setLoading] = useState(false); 
+
   const { backendUrl, aToken } = useContext(AdminContext);
   console.log(backendUrl, aToken);
 
@@ -27,6 +29,10 @@ const AddDoctor = () => {
       if (!docImg) {
         return toast.error("Please upload doctor image");
       }
+      if (passowrd.length < 8) {
+        return toast.error("Please provide strong password");
+      }
+      
 
       const formData = new FormData();
       formData.append("image", docImg);
@@ -50,13 +56,14 @@ const AddDoctor = () => {
       formData.forEach((value, key) => {
         console.log(`${key} : ${value}`);
       });
-
+      setLoading(true);
       const { data } = await axios.post(
         backendUrl + "/api/admin/add-doctor",
         formData,
         { headers: { aToken } }
       );
       if (data.success) {
+        setLoading(false);
         toast.success(data.message);
         setDocImg(false);
         setName("");
@@ -71,6 +78,7 @@ const AddDoctor = () => {
         toast.error(data.message);
       }
     } catch (error) {
+      setLoading(false);
       toast.error(error.message);
       console.log(error);
     }
@@ -228,10 +236,11 @@ const AddDoctor = () => {
           />
         </div>
         <button
-          type='submit'
-          className='bg-primary px-10 py-3 text-white mt-4 rounded-full'
+          type="submit"
+          className={`bg-primary px-10 py-3 text-white mt-4 rounded-full ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+          disabled={loading}
         >
-          Add doctor
+          {loading ? "Adding doctor..." : "Add doctor"} 
         </button>
       </div>
     </form>
