@@ -17,14 +17,15 @@ const addDoctor = async (req, res) => {
            return res.json({success: false, message: "Please provide all the details"}) 
         }
 
-        //validating email format
-        if(validator.isEmail(email)){
-            return res.json({success: false, message: "Please provide valid email"})
-        }
-
         //validating password format
         if(password.length < 8){
             return res.json({success: false, message: "Please provide strong password"})
+        }
+        
+        //check for existing email
+        const existingDoctor = await doctorModel.findOne({ email });
+        if (existingDoctor) {
+            return res.json({ success: false, message: "Doctor email already exists" });
         }
 
         //encrypt the doctor password
