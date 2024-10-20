@@ -61,6 +61,44 @@ const registerUser = async (req, res) => {
 
 //API for user login
 
+const loginUser = async (req, res) => {
+  try {
+    
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.json({
+        success: false,
+        message: "Please fill all the fields",
+      });
+    }
 
+    //check for valid email
+    if (!validator.isEmail(email)) {
+      return res.json({ success: false, message: "Invalid email format" });
+    }
+
+    //check for existing user
+    const user = await userModel.findOne({ email });
+    if (!user) {
+      return res.json({ success: false, message: "User not found" });
+    }
+
+    //check for password
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    //if the user matches then we have to create the token
+    if(isMatch){
+        //create the token
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET )
+        res.json({ success: true, message: "User logged in successfully", token });
+    }else{
+        res.json({ success: false, message: "Invalid credentials" });
+    }
+
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
 
 export { registerUser, loginUser };

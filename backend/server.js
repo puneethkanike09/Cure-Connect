@@ -5,7 +5,7 @@ import connectDB from './config/mongoDB.js';
 import connectCloudinary from './config/cloudinary.js';
 import adminRouter from './routes/admin.route.js';
 import doctorRouter from './routes/doctor.route.js';
-
+import userRouter from './routes/user.route.js';
 
 
 //app config
@@ -21,7 +21,7 @@ app.use(cors()); //to enable CORS
 //API endpoints
 app.use('/api/admin', adminRouter) //localhost:4000/api/admin/
 app.use('/api/doctor', doctorRouter) //localhost:4000/api/doctor/
-
+app.use('/api/user', userRouter) //localhost:4000/api/user/
 
 app.get('/', (req, res) => {
     res.send('api working good');
