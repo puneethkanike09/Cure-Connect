@@ -7,6 +7,7 @@ import adminRouter from './routes/admin.route.js';
 import doctorRouter from './routes/doctor.route.js';
 
 
+
 //app config
 const app = express();
 const port = process.env.PORT || 4000;
@@ -18,8 +19,9 @@ app.use(express.json()); //to parse the incoming requests with JSON payloads
 app.use(cors()); //to enable CORS
 
 //API endpoints
-app.use('/api/admin', adminRouter) //localhost:4000/api/admin/add-doctor
-app.use('/api/doctor', doctorRouter) //localhost:4000/api/doctor/add-doctor
+app.use('/api/admin', adminRouter) //localhost:4000/api/admin/
+app.use('/api/doctor', doctorRouter) //localhost:4000/api/doctor/
+
 
 app.get('/', (req, res) => {
     res.send('api working good');
