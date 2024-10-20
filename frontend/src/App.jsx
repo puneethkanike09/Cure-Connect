@@ -15,7 +15,7 @@ import Footer from "./components/Footer"
 const App = () => {
   return (
     <div className="mx-4 sm:mx-[10%]">
-      <ToastContainer/>
+      <ToastContainer theme="colored" autoClose={1000}/>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
