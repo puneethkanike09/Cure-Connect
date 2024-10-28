@@ -53,13 +53,25 @@ const Appointment = () => {
         hour: '2-digit',
         minute: '2-digit',
       });
+      
+      //logic to remove the booked slots from the UI
+      let day = currentDate.getDate();
+      let month = currentDate.getMonth() + 1;
+      let year = currentDate.getFullYear();
 
-      // Add slot to the array
-      timeSlots.push({
-        datetime: new Date(startTime),
-        time: formattedTime,
-      });
+      const slotDate = day + "_" + month + "_" + year
+      const slotTime = formattedTime
 
+      const isSlotAvailable = docInfo.slots_booked[slotDate] && docInfo.slots_booked[slotDate].includes(slotTime) ? false : true
+      if(isSlotAvailable){
+        timeSlots.push({
+          datetime: new Date(startTime),
+          time: formattedTime,
+        })
+      }
+      
+
+   
       // Increment current time by 30 minutes
       startTime.setMinutes(startTime.getMinutes() + 30);
     }
