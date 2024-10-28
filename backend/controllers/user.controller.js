@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import validator from "validator";
 import {v2 as cloudinary} from 'cloudinary'
 import doctorModel from "../models/doctor.model.js";
+import appointmentModel from "../models/appointment.model.js";
 
 //API to register user
 const registerUser = async (req, res) => {
