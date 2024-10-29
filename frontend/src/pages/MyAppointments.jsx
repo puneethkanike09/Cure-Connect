@@ -8,6 +8,13 @@ const MyAppointments = () => {
   const {backendUrl, token} = useContext(AppContext)
   const [appoinements, setAppointments] = useState([])
 
+  const months = [" ","Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+  const slotDateFormat = (slotDate)=>{
+    const dateArray = slotDate.split("_")
+    return dateArray[0] + " " + months[Number(dateArray[1])] + " " + dateArray[2]
+  }
+
   const getUserAppointments = async () => {
     try {
       const {data} = await axios.get(backendUrl+'/api/user/list-appointment', {headers:{token}})
@@ -44,7 +51,7 @@ useEffect(()=>{
                   <p className="text-zinc-700 font-medium mt-1">Address:</p>
                   <p className="text-xs">{item.docData.address.line1}</p>
                   <p className="text-xs">{item.docData.address.line2}</p>
-                  <p className="text-sm mt-1"><span className="text-sm text-neutral-700 font-medium">Date & Time:</span>{item.slotDate} | {item.slotTime}</p>
+                  <p className="text-sm mt-1"><span className="text-sm text-neutral-700 font-medium">Date & Time: </span>{slotDateFormat(item.slotDate)} | {item.slotTime}</p>
                 </div>
                 <div>
                     {/* this di is just to make the strucure for the UI, not for any other use */}
