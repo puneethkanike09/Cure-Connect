@@ -1,44 +1,90 @@
-import { useContext, useEffect } from "react"
-import { AdminContext } from "../../context/AdminContext"
+import { useContext, useEffect } from "react";
+import { AdminContext } from "../../context/AdminContext";
 import { assets } from "../../assets/assets";
+import { AppContext } from "../../context/AppContext";
 
 const Dashboard = () => {
+  const { aToken, dashData, getDashData, cancelAppointment } = useContext(AdminContext);
 
-  const {aToken, dashData, getDashData, cancelAppointment} = useContext(AdminContext)
+  const {slotDateFormat} = useContext(AppContext)
 
   useEffect(() => {
-    if(aToken){
-      getDashData()
+    if (aToken) {
+      getDashData();
     }
-  },[aToken])
+  }, [aToken]);
 
-  return dashData && (
-    <div className="m-5">
-      <div className="flex flex-wrap gap-3">
-        <div className="flex items-center gap-2 bg-white p-4 min-w-52 rounded border-2 border-gray-100 cursor-pointer hover:scale-105 transition-all">
-          <img className="w-14" src={assets.doctor_icon} alt="" />
-          <div>
-            <p className="text-xl font-semibold text-gray-600">{dashData.doctors}</p>
-            <p className="text-gray-400">Doctors</p>
-          </div>
+  return (
+    dashData && (
+      <div className="m-5">
+        {/* Dashboard Summary Cards */}
+        <div className="flex flex-wrap gap-5 mb-10">
+          {[
+            { icon: assets.doctor_icon, label: "Doctors", value: dashData.doctors },
+            { icon: assets.appointments_icon, label: "Appointments", value: dashData.appointments },
+            { icon: assets.patients_icon, label: "Patients", value: dashData.patients },
+          ].map((item, index) => (
+            <div
+              key={index}
+              className="flex items-center gap-4 bg-white p-5 rounded-lg shadow-sm border border-gray-200 cursor-pointer hover:scale-105 transition-transform"
+            >
+              <img className="w-14" src={item.icon} alt={item.label} />
+              <div>
+                <p className="text-lg font-bold  text-gray-700">{item.value}</p>
+                <p className="text-sm text-gray-500">{item.label}</p>
+              </div>
+            </div>
+          ))}
         </div>
-        <div className="flex items-center gap-2 bg-white p-4 min-w-52 rounded border-2 border-gray-100 cursor-pointer hover:scale-105 transition-all">
-          <img className="w-14" src={assets.appointments_icon} alt="" />
-          <div>
-            <p className="text-xl font-semibold text-gray-600">{dashData.appointments}</p>
-            <p className="text-gray-400">Appointments</p>
+
+        {/* Latest Bookings Section */}
+        <div className="bg-white rounded-lg shadow-sm border">
+          {/* Header */}
+          <div className="flex items-center justify-between px-6 py-4 bg-gray-50 border-b">
+            <div className="flex items-center gap-2">
+              <img src={assets.list_icon} alt="List Icon" />
+              <p className="text-lg font-semibold text-gray-700">Latest Bookings</p>
+            </div>
           </div>
-        </div>
-        <div className="flex items-center gap-2 bg-white p-4 min-w-52 rounded border-2 border-gray-100 cursor-pointer hover:scale-105 transition-all">
-          <img className="w-14" src={assets.patients_icon} alt="" />
-          <div>
-            <p className="text-xl font-semibold text-gray-600">{dashData.patients}</p>
-            <p className="text-gray-400">Patients</p>
+
+          {/* Bookings List */}
+          <div className="divide-y">
+            {dashData.latestAppointments.map((item, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-between px-6 py-4 hover:bg-gray-50"
+              >
+                {/* Doctor Image and Details */}
+                <div className="flex items-center gap-4">
+                  <img
+                    className="w-12 h-12 rounded-full border border-gray-200"
+                    src={item.docData.image}
+                    alt={item.docData.name}
+                  />
+                  <div>
+                    <p className="font-medium text-gray-800">{item.docData.name}</p>
+                    <p className="text-sm text-gray-500">{slotDateFormat(item.slotDate)}</p>
+                  </div>
+                </div>
+
+                {/* Appointment Status / Action */}
+                {item.cancelled ? (
+                  <p className="text-xs font-semibold text-red-500">Cancelled</p>
+                ) : (
+                  <img
+                    onClick={() => cancelAppointment(item._id)}
+                    className="w-8 h-8 cursor-pointer"
+                    src={assets.cancel_icon}
+                    alt="Cancel Appointment"
+                  />
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </div>
-    </div>
-  )
-}
+    )
+  );
+};
 
-export default Dashboard
+export default Dashboard;

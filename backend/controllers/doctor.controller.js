@@ -39,7 +39,7 @@ const changeAvailability = async (req, res) => {
             doctors: doctors.length,
             appointments: appointments.length,
             patients: users.length,
-            latestAppointments: appointments.reverse().slice(-5)
+            latestAppointments: appointments.slice(-5).reverse()
 
         }
 
