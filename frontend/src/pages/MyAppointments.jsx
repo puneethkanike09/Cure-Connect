@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import {AppContext} from "../context/AppContext"
 import axios from "axios"
 import { toast } from "react-toastify"
+import {useNavigate} from "react-router-dom"
 
 const MyAppointments = () => {
   
@@ -9,6 +10,8 @@ const MyAppointments = () => {
   const [appoinements, setAppointments] = useState([])
 
   const months = [" ","Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+  
+  const navigate = useNavigate()
 
   const slotDateFormat = (slotDate)=>{
     const dateArray = slotDate.split("_")
@@ -44,6 +47,48 @@ const MyAppointments = () => {
       toast.error(error.message)
     }
   }
+  
+
+  const initPay = (order) => {
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      amount: order.amount,
+      currency: order.currency,
+      name: "Appointment Payment",
+      description: "Appointment Payment",
+      order_id: order.id,
+      receipt : order.receipt,
+      handler: async (response) => {
+        console.log(response);
+        try {
+          const {data} = await axios.post(backendUrl+'/api/user/verify-razorpay', response, {headers:{token}})
+          if(data.success){
+            getUserAppointments()
+            navigate('/my-appointments')
+          }
+        } catch (error) {
+          console.log(error)
+          toast.error(error.message)
+        }
+        
+      }
+    }
+
+    const rzp = new window.Razorpay(options)
+    rzp.open()
+  }
+
+  const appointmentRazorpay = async (appointmentId) => {
+    try {
+      const {data} = await axios.post(backendUrl+'/api/user/payment-razorpay', {appointmentId}, {headers:{token}})
+      if(data.success){
+        initPay(data.order)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
 useEffect(()=>{
   if(token){  
@@ -75,9 +120,12 @@ useEffect(()=>{
                     {/* this di is just to make the strucure for the UI, not for any other use */}
                 </div>
                 <div className="flex flex-col gap-2 justify-end">
+                {
+                  !item.cancelled && item.payment && <button className="sm:min-w-48 py-2 border rounded text-stone-500 bg-indigo-50" >Paid</button>
+                }
                   {
-                    !item.cancelled && 
-                    <button className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300">Pay online</button>
+                    !item.cancelled && !item.payment &&
+                    <button onClick={()=>appointmentRazorpay(item._id)} className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300">Pay online</button>
                   }
 
                   {
