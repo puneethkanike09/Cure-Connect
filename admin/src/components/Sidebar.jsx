@@ -106,7 +106,7 @@ const Sidebar = () => {
             to={"/doctor-profile"}
           >
             <img src={assets.people_icon} alt="Doctors List" />
-            <p>Doctors List</p>
+            <p>Profile</p>
           </NavLink>
         </ul>
       )}
