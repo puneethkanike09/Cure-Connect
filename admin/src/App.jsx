@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import Login from "./pages/Login"
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { AdminContext } from "./context/AdminContext";
 import Navbar from "./components/Navbar";
-import Sidebar from "./components/sidebar";
+import Sidebar from "./components/Sidebar";
 import { Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/admin/Dashboard";
 import AllAppointments from "./pages/admin/AllAppointments";
@@ -17,11 +17,11 @@ import DoctorAppointment from "./pages/doctor/DoctorAppointment";
 import DoctorProfile from "./pages/doctor/DoctorProfile";
 
 const App = () => {
-  const{aToken} = useContext(AdminContext)
-  const {dToken} = useContext(DoctorContext)
+  const { aToken } = useContext(AdminContext)
+  const { dToken } = useContext(DoctorContext)
   return aToken || dToken ? (
-    <div className="bg-[#f8f9fd]">    
-      <ToastContainer theme="colored" autoClose={1000}/>
+    <div className="bg-[#f8f9fd]">
+      <ToastContainer theme="colored" autoClose={1000} />
       <Navbar />
       <div className="flex items-start">
         <Sidebar />
@@ -42,9 +42,9 @@ const App = () => {
     </div>
   ) : (
     <>
-    <ToastContainer theme="colored" autoClose={1000}/>
-    <Login />
-      
+      <ToastContainer theme="colored" autoClose={1000} />
+      <Login />
+
     </>
   )
 }
