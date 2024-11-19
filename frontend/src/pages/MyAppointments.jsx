@@ -128,24 +128,41 @@ const MyAppointments = () => {
                 {/* this di is just to make the strucure for the UI, not for any other use */}
               </div>
               <div className="flex flex-col gap-2 justify-end">
-                {
-                  !item.cancelled && item.payment && <button className="sm:min-w-48 py-2 border rounded text-stone-500 bg-indigo-50" >Paid</button>
-                }
-                {
-                  !item.cancelled && !item.payment &&
-                  <button onClick={() => appointmentRazorpay(item._id)} className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300">Pay online</button>
-                }
-
-                {
-                  !item.cancelled &&
-                  <button onClick={() => cancelAppointment(item._id)} className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white transition-all duration-300">Cancel appointment</button>
-                }
-                {
-                  item.cancelled &&
-                  <button className="sm:min-w-48 py-2 border border-red-500 rounded text-red-500">Appointment Cancelled</button>
-                }
-
+                {item.cancelled ? (
+                  // Show this button if the appointment is cancelled
+                  <button className="sm:min-w-48 py-2 border border-red-500 rounded text-red-500">
+                    Appointment Cancelled
+                  </button>
+                ) : item.isCompleted ? (
+                  // Show this button if the appointment is completed
+                  <button className="sm:min-w-48 py-2 border border-green-500 rounded text-green-500">
+                    Appointment Completed
+                  </button>
+                ) : item.payment ? (
+                  // Show this button if the appointment is paid and not cancelled
+                  <button className="sm:min-w-48 py-2 border rounded text-stone-500 bg-indigo-50">
+                    Paid
+                  </button>
+                ) : (
+                  <>
+                    {/* Show this button if the appointment is not cancelled and not paid */}
+                    <button
+                      onClick={() => appointmentRazorpay(item._id)}
+                      className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300"
+                    >
+                      Pay online
+                    </button>
+                    {/* Show this button to allow cancellation if the appointment is active */}
+                    <button
+                      onClick={() => cancelAppointment(item._id)}
+                      className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white transition-all duration-300"
+                    >
+                      Cancel appointment
+                    </button>
+                  </>
+                )}
               </div>
+
             </div>
           ))
         }
