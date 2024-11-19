@@ -131,10 +131,10 @@ const doctorDashboard = async (req, res) => {
     try {
         const {docId} = req.body
         const appointments = await appointmentModel.find({docId})
-        let earlings = 0
+        let earnings = 0
         appointments.map((item)=>{
             if(item.isCompleted || item.payment){
-                earlings += item.amount
+                earnings += item.amount
             }
         })
         let patients = []
@@ -145,7 +145,7 @@ const doctorDashboard = async (req, res) => {
         })
 
         const dashData = {
-            earlings,
+            earnings,
             appointments: appointments.length,
             patients: patients.length,
             latestAppointments: appointments.reverse().slice(0,5)
