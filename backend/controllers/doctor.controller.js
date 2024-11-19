@@ -91,5 +91,39 @@ const appointmentsDoctor = async (req, res) => {
     }
 }
 
+//API to mark appointment as completed for the doctor pannel
+const appointmentComplete = async (req, res) => {
+    try {
+        const {docId, appointmentId} = req.body
+        const appointmentData = appointmentModel.findById(appointmentId)
+        if(appointmentData && appointmentData.docId === docId){
+            await appointmentModel.findByIdAndUpdate(appointmentId, {isCompleted: true})
+            return res.json({success: true, message: "Appointment marked as completed"})
+        }else{
+            res.json({success: false, message: "Mark failed"})
+        }
+    } catch (error) {
+        console.log(error)
+        res.json({success: false, message: error.message})
+    }
+}
 
-export {changeAvailability, doctorList, adminDashboard, loginDoctor, appointmentsDoctor}
+//API to mark appointment as cancel for the doctor pannel
+const appointmentCancel = async (req, res) => {
+    try {
+        const {docId, appointmentId} = req.body
+        const appointmentData = appointmentModel.findById(appointmentId)
+        if(appointmentData && appointmentData.docId === docId){
+            await appointmentModel.findByIdAndUpdate(appointmentId, {cancelled: true})
+            return res.json({success: true, message: "Appointment marked as completed"})
+        }else{
+            res.json({success: false, message: "Cancellation failed"})
+        }
+    } catch (error) {
+        console.log(error)
+        res.json({success: false, message: error.message})
+    }
+}
+
+
+export {changeAvailability, doctorList, adminDashboard, loginDoctor, appointmentsDoctor, appointmentComplete, appointmentCancel}
