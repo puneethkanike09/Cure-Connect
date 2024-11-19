@@ -26,14 +26,14 @@ const Login = () => {
           console.log(data.message);
         }
       } else {
-        const {data} = await axios.post(backendUrl + '/api/doctor/login', { email, password });
+        const { data } = await axios.post(backendUrl + '/api/doctor/login', { email, password });
         if (data.success) {
           toast.success(data.message);  // Display toast before state update
           localStorage.setItem('dToken', data.token);
           setDToken(data.token); // Update state after toast
           console.log(data.token)
           console.log(data.message);
-        }else{
+        } else {
           toast.error(data.message);
           console.log(data.message);
         }
@@ -51,26 +51,26 @@ const Login = () => {
         </p>
         <div className='w-full'>
           <label className='block mb-2 text-sm'>Email</label>
-          <input 
-            onChange={(e) => setEmail(e.target.value)} 
-            value={email} 
-            className='w-full p-3 rounded-lg bg-[#eaeaea] focus:outline-none focus:ring-2 focus:ring-primary text-base' 
-            type="email" 
-            required 
+          <input
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            className='w-full p-3 rounded-lg bg-[#eaeaea] focus:outline-none focus:ring-2 focus:ring-primary text-base'
+            type="email"
+            required
           />
         </div>
         <div className='w-full'>
           <label className='block mb-2 text-sm'>Password</label>
-          <input 
-            onChange={(e) => setPassword(e.target.value)} 
-            value={password} 
-            className='w-full p-3 rounded-lg bg-[#eaeaea] focus:outline-none focus:ring-2 focus:ring-primary text-base' 
-            type="password" 
-            required 
+          <input
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            className='w-full p-3 rounded-lg bg-[#eaeaea] focus:outline-none focus:ring-2 focus:ring-primary text-base'
+            type="password"
+            required
           />
         </div>
-        <button 
-          className='bg-primary text-white py-3 rounded-lg text-base hover:bg-opacity-90 transition-all duration-200' 
+        <button
+          className='bg-primary text-white py-3 rounded-lg text-base hover:bg-opacity-90 transition-all duration-200'
           type="submit"
         >
           Login
