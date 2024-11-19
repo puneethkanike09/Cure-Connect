@@ -176,8 +176,8 @@ const doctorProfile = async (req, res) => {
 
 const updateDoctorProfile = async (req, res) => {
     try {
-        const { docId, fee, address, available } = req.body
-        await doctorModel.findByIdAndUpdate(docId, { fee, address, available })
+        const { docId, fees, address, available } = req.body
+        await doctorModel.findByIdAndUpdate(docId, { fees, address, available })
         res.json({ success: true, message: 'Profile updated successfully' })
     } catch (error) {
         console.log(error)

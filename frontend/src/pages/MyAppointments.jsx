@@ -136,7 +136,7 @@ const MyAppointments = () => {
                 ) : item.isCompleted ? (
                   // Show this button if the appointment is completed
                   <button className="sm:min-w-48 py-2 border border-green-500 rounded text-green-500">
-                    Appointment Completed
+                    Completed
                   </button>
                 ) : item.payment ? (
                   // Show this button if the appointment is paid and not cancelled
