@@ -16,7 +16,7 @@ const About = () => {
         />
         <div className='flex flex-col justify-center gap-6 md:w-2/4 text-sm text-gray-600'>
           <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor laudantium, cumque, at necessitatibus consequatur distinctio blanditiis quod consequuntur molestias sed dolorum, repudiandae nihil labore facere deleniti vel aut maiores quam!
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor laudantium, cumque, wiefhbiowuehf at necessitatibus consequatur distinctio blanditiis quod consequuntur molestias sed dolorum, repudiandae nihil labore facere deleniti vel aut maiores quam!
           </p>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto voluptate facere, autem fugit quis itaque totam iste sint sunt consectetur qui nostrum veniam pariatur minus harum. In rerum adipisci maiores?
